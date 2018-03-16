@@ -1,0 +1,1 @@
+cat lena/lena.ppm lena/blur_15.txt | ./a.out > saida2.ppm
