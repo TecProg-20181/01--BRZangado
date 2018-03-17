@@ -30,8 +30,8 @@ Image escala_de_cinza(Image img) {
         }
     }*/
 
-    for (unsigned int i = 0; i < img.height; ++i) {
-        for (unsigned int j = 0; j < img.width; ++j) {
+    for (int i = 0; i < img.height; ++i) {
+        for (int j = 0; j < img.width; ++j) {
         
             int media = img.pixel[i][j][0] + img.pixel[i][j][1] + img.pixel[i][j][2];
             
@@ -118,11 +118,9 @@ Image cortar_imagem(Image img, int x, int y, int width, int height) {
     return cortada;
 }
 
+Image initImage(Image img){
 
-int main() {
-    Image img;
-
-    // read type of image
+        // read type of image
     char p3[4];
     scanf("%s", p3);
 
@@ -139,6 +137,18 @@ int main() {
 
         }
     }
+
+    return img;
+
+
+}
+
+
+int main() {
+
+
+    Image img;
+    img = initImage(img);
 
     int n_opcoes;
     scanf("%d", &n_opcoes);
@@ -228,13 +238,15 @@ int main() {
                 break;
             }
             case 6: { // Inversao de Cores
-                inverter_cores(img.pixel, img.width, img.height);
+            	inverter_cores(img.pixel, img.width, img.height);
                 break;
             }
             case 7: { // Cortar Imagem
+                
                 int x, y;
-                scanf("%d %d", &x, &y);
                 int width, height;
+                
+                scanf("%d %d", &x, &y);
                 scanf("%d %d", &width, &height);
 
                 img = cortar_imagem(img, x, y, width, height);
