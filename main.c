@@ -20,17 +20,21 @@ typedef struct _image {
 
 int pixel_igual(Pixel p1, Pixel p2);
 
-Image escala_de_cinza(Image img);
+void inverter_cores(unsigned short int pixel[512][512][3], unsigned int w, unsigned int h);
 
 void blur(unsigned int h, unsigned short int pixel[512][512][3], int T, unsigned int w);
 
-Image rotacionar90direita(Image img);
+void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigned int img_width, unsigned int img_height);
 
-void inverter_cores(unsigned short int pixel[512][512][3], unsigned int w, unsigned int h);
+Image escala_de_cinza(Image img);
+
+Image rotacionar90direita(Image img);
 
 Image cortar_imagem(Image img, int x, int y, int width, int height);
 
 Image initImage(Image img);
+
+
 
 int main() {
 
@@ -92,37 +96,7 @@ int main() {
             case 5: { // Espelhamento
                 int horizontal = 0;
                 scanf("%d", &horizontal);
-
-                int width = img.width, height = img.height;
-
-                if (horizontal == 1)
-                	width /= 2;
-                else
-                	height /= 2;
-
-                for (int i = 0; i < height; ++i) {
-                    for (int j = 0; j < width; ++j) {
-                        int x = i, y = j;
-
-                        if (horizontal == 1)
-                        	y = img.width - 1 - j;
-                        else
-                        	x = img.height - 1 - i;
-
-                        Pixel aux1;
-                        aux1.r = img.pixel[i][j][0];
-                        aux1.g = img.pixel[i][j][1];
-                        aux1.b = img.pixel[i][j][2];
-
-                        img.pixel[i][j][0] = img.pixel[x][y][0];
-                        img.pixel[i][j][1] = img.pixel[x][y][1];
-                        img.pixel[i][j][2] = img.pixel[x][y][2];
-
-                        img.pixel[x][y][0] = aux1.r;
-                        img.pixel[x][y][1] = aux1.g;
-                        img.pixel[x][y][2] = aux1.b;
-                    }
-                }
+                espelhamento(horizontal, img.pixel, img.width, img.height);
                 break;
             }
             case 6: { // Inversao de Cores
@@ -163,6 +137,42 @@ int main() {
 }
 
 //  --------- Implementado funções previamente declaradas
+
+void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigned int img_width, unsigned int img_height) {
+  
+    int width = img_width;
+    int height = img_height;
+
+    if (horizontal == 1)
+        width /= 2;
+    else
+        height /= 2;
+
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            
+            int x = i, y = j;
+
+            if (horizontal == 1)
+                y = img_width - 1 - j;
+            else
+                x = img_height - 1 - i;
+
+            Pixel aux1;
+            aux1.r = pixel[i][j][0];
+            aux1.g = pixel[i][j][1];
+            aux1.b = pixel[i][j][2];
+
+            pixel[i][j][0] = pixel[x][y][0];
+            pixel[i][j][1] = pixel[x][y][1];
+            pixel[i][j][2] = pixel[x][y][2];
+
+            pixel[x][y][0] = aux1.r;
+            pixel[x][y][1] = aux1.g;
+            pixel[x][y][2] = aux1.b;
+        }
+    }
+}
 
 Image cortar_imagem(Image img, int x, int y, int width, int height) {
     Image cortada;
