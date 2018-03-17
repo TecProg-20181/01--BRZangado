@@ -151,7 +151,8 @@ void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigne
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
             
-            int x = i, y = j;
+            int x = i
+            int y = j;
 
             if (horizontal == 1)
                 y = img_width - 1 - j;
