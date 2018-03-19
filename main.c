@@ -28,6 +28,8 @@ void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigne
 
 void imprimirImagem(Image img);
 
+void filtroSepia(unsigned short int pixel[512][512][3], unsigned int img_width, unsigned int img_height);
+
 Image escala_de_cinza(Image img);
 
 Image rotacionar90direita(Image img);
@@ -57,27 +59,8 @@ int main() {
                 break;
             }
             case 2: { // Filtro Sepia
-                for (int x = 0; x < img.height; ++x) {
-                    for (int j = 0; j < img.width; ++j) {
-                        unsigned short int pixel[3];
-                        pixel[0] = img.pixel[x][j][0];
-                        pixel[1] = img.pixel[x][j][1];
-                        pixel[2] = img.pixel[x][j][2];
-
-                        int p =  pixel[0] * .393 + pixel[1] * .769 + pixel[2] * .189;
-                        int menor_r = (255 >  p) ? p : 255;
-                        img.pixel[x][j][0] = menor_r;
-
-                        p =  pixel[0] * .349 + pixel[1] * .686 + pixel[2] * .168;
-                        menor_r = (255 >  p) ? p : 255;
-                        img.pixel[x][j][1] = menor_r;
-
-                        p =  pixel[0] * .272 + pixel[1] * .534 + pixel[2] * .131;
-                        menor_r = (255 >  p) ? p : 255;
-                        img.pixel[x][j][2] = menor_r;
-                    }
-                }
-
+                
+				filtroSepia(img.pixel, img.width, img.height);
                 break;
             }
             case 3: { // Blur
@@ -127,6 +110,33 @@ int main() {
 }
 
 //  --------- Implementado funções previamente declaradas
+
+void filtroSepia(unsigned short int img_pixel[512][512][3], unsigned int img_width, unsigned int img_height){
+
+
+	for (int i = 0; i < img_height; ++i) {
+       for (int j = 0; j < img_width; ++j) {
+            unsigned short int pixel[3];
+            pixel[0] = img_pixel[i][j][0];
+            pixel[1] = img_pixel[i][j][1];
+            pixel[2] = img_pixel[i][j][2];
+
+          	int p =  pixel[0] * .393 + pixel[1] * .769 + pixel[2] * .189;
+            int menor_r = (255 >  p) ? p : 255;
+            img_pixel[i][j][0] = menor_r;
+
+            p =  pixel[0] * .349 + pixel[1] * .686 + pixel[2] * .168;
+            menor_r = (255 >  p) ? p : 255;
+          	img_pixel[i][j][1] = menor_r;
+
+            p =  pixel[0] * .272 + pixel[1] * .534 + pixel[2] * .131;
+            menor_r = (255 >  p) ? p : 255;
+            img_pixel[i][j][2] = menor_r;
+         }
+     }	
+
+
+}
 
 void imprimirImagem(Image img){
 
