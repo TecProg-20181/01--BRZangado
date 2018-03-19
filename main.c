@@ -235,8 +235,8 @@ Image initImage(Image img){
 
 void inverter_cores(unsigned short int pixel[512][512][3],
                     unsigned int width, unsigned int height) {
-    for (unsigned int i = 0; i < height; ++i) {
-        for (unsigned int j = 0; j < width; ++j) {
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
             pixel[i][j][0] = 255 - pixel[i][j][0];
             pixel[i][j][1] = 255 - pixel[i][j][1];
             pixel[i][j][2] = 255 - pixel[i][j][2];
