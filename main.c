@@ -32,7 +32,7 @@ void filtroSepia(unsigned short int pixel[512][512][3], unsigned int img_width, 
 
 Image escala_de_cinza(Image img);
 
-Image rotacionar90direita(Image img);
+Image rotacionar90direita(Image img, int quantas_vezes);
 
 Image cortar_imagem(Image img, int x, int y, int width, int height);
 
@@ -73,9 +73,7 @@ int main() {
                 int quantas_vezes = 0;
                 scanf("%d", &quantas_vezes);
                 quantas_vezes %= 4;
-                for (int j = 0; j < quantas_vezes; ++j) {
-                    img = rotacionar90direita(img);
-                }
+                img = rotacionar90direita(img, quantas_vezes);
                 break;
             }
             case 5: { // Espelhamento
@@ -236,9 +234,9 @@ Image initImage(Image img){
 
 
 void inverter_cores(unsigned short int pixel[512][512][3],
-                    unsigned int w, unsigned int h) {
-    for (unsigned int i = 0; i < h; ++i) {
-        for (unsigned int j = 0; j < w; ++j) {
+                    unsigned int width, unsigned int height) {
+    for (unsigned int i = 0; i < height; ++i) {
+        for (unsigned int j = 0; j < width; ++j) {
             pixel[i][j][0] = 255 - pixel[i][j][0];
             pixel[i][j][1] = 255 - pixel[i][j][1];
             pixel[i][j][2] = 255 - pixel[i][j][2];
@@ -246,18 +244,23 @@ void inverter_cores(unsigned short int pixel[512][512][3],
     }
 }
 
-Image rotacionar90direita(Image img) {
+Image rotacionar90direita(Image img, int quantas_vezes) {
     Image rotacionada;
 
     rotacionada.width = img.height;
     rotacionada.height = img.width;
-
-    for (unsigned int i = 0, y = 0; i < rotacionada.height; ++i, ++y) {
-        for (int j = rotacionada.width - 1, x = 0; j >= 0; --j, ++x) {
-            rotacionada.pixel[i][j][0] = img.pixel[x][y][0];
-            rotacionada.pixel[i][j][1] = img.pixel[x][y][1];
-            rotacionada.pixel[i][j][2] = img.pixel[x][y][2];
-        }
+    
+    for (int x = 0; x < quantas_vezes; ++x) {
+    
+    	for (unsigned int i = 0, y = 0; i < rotacionada.height; ++i, ++y) {
+		    for (int j = rotacionada.width - 1, x = 0; j >= 0; --j, ++x) {
+		        rotacionada.pixel[i][j][0] = img.pixel[x][y][0];
+		        rotacionada.pixel[i][j][1] = img.pixel[x][y][1];
+		        rotacionada.pixel[i][j][2] = img.pixel[x][y][2];
+		    }
+    	}
+    
+    
     }
 
     return rotacionada;
