@@ -22,7 +22,7 @@ int pixel_igual(Pixel p1, Pixel p2);
 
 void inverter_cores(unsigned short int pixel[512][512][3], unsigned int w, unsigned int h);
 
-void blur(unsigned int h, unsigned short int pixel[512][512][3], int T, unsigned int w);
+void blur(unsigned int img_height, unsigned short int pixel[512][512][3], int T, unsigned int img_width);
 
 void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigned int img_width, unsigned int img_height);
 
@@ -296,15 +296,15 @@ Image escala_de_cinza(Image img) {
     return img;
 }
 
-void blur(unsigned int h, unsigned short int pixel[512][512][3], int T, unsigned int w) {
-    for (unsigned int i = 0; i < h; ++i) {
-        for (unsigned int j = 0; j < w; ++j) {
+void blur(unsigned int img_height, unsigned short int pixel[512][512][3], int T, unsigned int img_width) {
+    for (unsigned int i = 0; i < img_height; ++i) {
+        for (unsigned int j = 0; j < img_width; ++j) {
             Pixel media = {0, 0, 0};
 
-            int menor_h = (h - 1 > i + T/2) ? i + T/2 : h - 1;
-            int min_w = (w - 1 > j + T/2) ? j + T/2 : w - 1;
-            for(int x = (0 > i - T/2 ? 0 : i - T/2); x <= menor_h; ++x) {
-                for(int y = (0 > j - T/2 ? 0 : j - T/2); y <= min_w; ++y) {
+            int menor_height = (img_height - 1 > i + T/2) ? i + T/2 : img_height - 1;
+            int min_width = (img_width - 1 > j + T/2) ? j + T/2 : img_width - 1;
+            for(int x = (0 > i - T/2 ? 0 : i - T/2); x <= menor_height; ++x) {
+                for(int y = (0 > j - T/2 ? 0 : j - T/2); y <= min_width; ++y) {
                     media.r += pixel[x][y][0];
                     media.g += pixel[x][y][1];
                     media.b += pixel[x][y][2];
