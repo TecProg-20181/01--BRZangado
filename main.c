@@ -26,6 +26,8 @@ void blur(unsigned int h, unsigned short int pixel[512][512][3], int T, unsigned
 
 void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigned int img_width, unsigned int img_height);
 
+void imprimirImagem(Image img);
+
 Image escala_de_cinza(Image img);
 
 Image rotacionar90direita(Image img);
@@ -118,25 +120,29 @@ int main() {
 
     }
 
-    // print type of image
-    printf("P3\n");
-    // print width height and color of image
-    printf("%u %u\n255\n", img.width, img.height);
 
-    // print pixels of image
-    for (int i = 0; i < img.height; ++i) {
-        for (int j = 0; j < img.width; ++j) {
-            printf("%hu %hu %hu ", img.pixel[i][j][0],
-                                   img.pixel[i][j][1],
-                                   img.pixel[i][j][2]);
+	imprimirImagem(img);
 
-        }
-        printf("\n");
-    }
     return 0;
 }
 
 //  --------- Implementado funções previamente declaradas
+
+void imprimirImagem(Image img){
+
+	printf("P3\n");
+      printf("%u %u\n255\n", img.width, img.height);
+      for (int i = 0; i < img.height; ++i) {
+          for (int j = 0; j < img.width; ++j) {
+              printf("%hu %hu %hu ", img.pixel[i][j][0],
+                                     img.pixel[i][j][1],
+                                     img.pixel[i][j][2]);
+
+          }
+          printf("\n");
+      }
+
+}
 
 void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigned int img_width, unsigned int img_height) {
   
@@ -151,7 +157,7 @@ void espelhamento(int horizontal, unsigned short int pixel[512][512][3], unsigne
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
             
-            int x = i
+            int x = i;
             int y = j;
 
             if (horizontal == 1)
