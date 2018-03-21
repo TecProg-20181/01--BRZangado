@@ -245,6 +245,7 @@ void inverter_cores(unsigned short int pixel[512][512][3],
 }
 
 Image rotacionar90direita(Image img, int quantas_vezes) {
+    
     Image rotacionada;
 
     rotacionada.width = img.height;
