@@ -111,20 +111,20 @@ Image sepia_a(Image img){
 
     for (int i = 0; i < img.height; ++i) {
        for (int j = 0; j < img.width; ++j) {
-            unsigned short int pixel[3];
-            pixel[0] = img.pixel[i][j][0];
-            pixel[1] = img.pixel[i][j][1];
-            pixel[2] = img.pixel[i][j][2];
+            Pixel pixel;
+            pixel.r = img.pixel[i][j][0];
+            pixel.g = img.pixel[i][j][1];
+            pixel.b = img.pixel[i][j][2];
 
-          	int p =  pixel[0] * .393 + pixel[1] * .769 + pixel[2] * .189;
+          	int p =  pixel.r * .393 + pixel.g * .769 + pixel.b * .189;
             int menor_r = (255 >  p) ? p : 255;
             img.pixel[i][j][0] = menor_r;
 
-            p =  pixel[0] * .349 + pixel[1] * .686 + pixel[2] * .168;
+            p =  pixel.r * .349 + pixel.g * .686 + pixel.b * .168;
             menor_r = (255 >  p) ? p : 255;
           	img.pixel[i][j][1] = menor_r;
 
-            p =  pixel[0] * .272 + pixel[1] * .534 + pixel[2] * .131;
+            p =  pixel.r * .272 + pixel.g * .534 + pixel.b * .131;
             menor_r = (255 >  p) ? p : 255;
             img.pixel[i][j][2] = menor_r;
          }
