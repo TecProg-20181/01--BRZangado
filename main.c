@@ -20,8 +20,6 @@ typedef struct _image {
 
 int pixel_igual(Pixel p1, Pixel p2);
 
-void blur(unsigned int img_height, unsigned short int pixel[512][512][3], int T, unsigned int img_width);
-
 void imprimirImagem(Image img);
 
 Image blur_a(Image img, int tamanho);
@@ -332,29 +330,3 @@ Image blur_a(Image img, int tamanho){
 
 }
 
-void blur(unsigned int img_height, unsigned short int pixel[512][512][3], int T, unsigned int img_width) {
-    for (unsigned int i = 0; i < img_height; ++i) {
-        for (unsigned int j = 0; j < img_width; ++j) {
-            Pixel media = {0, 0, 0};
-
-            int menor_height = (img_height - 1 > i + T/2) ? i + T/2 : img_height - 1;
-            int min_width = (img_width - 1 > j + T/2) ? j + T/2 : img_width - 1;
-            for(int x = (0 > i - T/2 ? 0 : i - T/2); x <= menor_height; ++x) {
-                for(int y = (0 > j - T/2 ? 0 : j - T/2); y <= min_width; ++y) {
-                    media.r += pixel[x][y][0];
-                    media.g += pixel[x][y][1];
-                    media.b += pixel[x][y][2];
-                }
-            }
-
-            // printf("%u", media.r)
-            media.r /= T * T;
-            media.g /= T * T;
-            media.b /= T * T;
-
-            pixel[i][j][0] = media.r;
-            pixel[i][j][1] = media.g;
-            pixel[i][j][2] = media.b;
-        }
-    }
-}
