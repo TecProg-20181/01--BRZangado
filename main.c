@@ -138,8 +138,8 @@ void imprimirImagem(Image img){
 
 	printf("P3\n");
       printf("%u %u\n255\n", img.width, img.height);
-      for (int i = 0; i < img.height; ++i) {
-          for (int j = 0; j < img.width; ++j) {
+      for (unsigned int i = 0; i < img.height; ++i) {
+          for (unsigned int j = 0; j < img.width; ++j) {
               printf("%hu %hu %hu ", img.pixel[i][j].r,
                                      img.pixel[i][j].g,
                                      img.pixel[i][j].b);
@@ -218,8 +218,8 @@ Image initImage(Image img){
     scanf("%u %u %d", &img.width, &img.height, &max_color);
 
     // read all pixels of image
-    for (int i = 0; i < img.height; ++i) {
-        for (int j = 0; j < img.width; ++j) {
+    for (unsigned int i = 0; i < img.height; ++i) {
+        for (unsigned int j = 0; j < img.width; ++j) {
             scanf("%hu %hu %hu", &img.pixel[i][j].r,
                                  &img.pixel[i][j].g,
                                  &img.pixel[i][j].b);
@@ -301,8 +301,8 @@ Image escala_de_cinza(Image img) {
 
 Image blur_a(Image img, int tamanho){
 
-    for (unsigned int i = 0; i < img.height; ++i) {
-        for (unsigned int j = 0; j < img.width; ++j) {
+    for (int i = 0; i < img.height; ++i) {
+        for (int j = 0; j < img.width; ++j) {
             Pixel media = {0, 0, 0};
 
             int menor_height = (img.height - 1 > i + tamanho/2) ? i + tamanho/2 : img.height - 1;
